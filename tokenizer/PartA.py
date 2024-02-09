@@ -2,9 +2,6 @@ import re
 import sys
 
 """
-Sorry I'm new to git and figured this out pretty late which is why
-I had a lot of my code written before I did git init, but I still made
-regular edits after and made sure to use it.
 This runs on linear time O(n) where n is the number of characters 
 in the file. This is because the while loop will increment for each 
 line in the file and then call split() which would effectively make
