@@ -1,5 +1,7 @@
 import re
+import requests
 from urllib.parse import urlparse
+from bs4 import BeautifulSoup
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
@@ -15,6 +17,13 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
+    validLinks = list()
+    response = requests.get(resp)
+    if response.status_code == 200:
+        soup = BeautifulSoup(resp.string, "html.parser")
+        aTags = soup.find_all("a")
+        for tag in aTags:
+            validLinks.append(tag)
     return list()
 
 def is_valid(url):
@@ -24,6 +33,10 @@ def is_valid(url):
     try:
         parsed = urlparse(url)
         if parsed.scheme not in set(["http", "https"]):
+            return False
+        # Check if domain contains any of the provided valid domains
+        validDomains = [".ics.uci.edu/", ".cs.uci.edu/", ".informatics.uci.edu/", ".stat.uci.edu/"]
+        if not any(domain in parsed for domain in validDomains):
             return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
