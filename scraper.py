@@ -1,5 +1,5 @@
 import re
-import requests
+# import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
@@ -17,13 +17,14 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    validLinks = list()
-    response = requests.get(resp)
-    if response.status_code == 200:
-        soup = BeautifulSoup(resp.string, "html.parser")
+    # response = requests.get(resp)
+    if resp.status == 200:
+        validLinks = list()
+        soup = BeautifulSoup(resp.raw_response.content, "html.parser")
         aTags = soup.find_all("a")
         for tag in aTags:
-            validLinks.append(tag)
+            validLinks.append(tag["href"])
+        return validLinks
     return list()
 
 def is_valid(url):
