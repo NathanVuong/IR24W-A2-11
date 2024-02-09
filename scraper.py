@@ -1,7 +1,8 @@
 import re
-# import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
+from tokenizer.PartA import tokenize, compute_word_frequencies
+from globals import longestPage, totalWordFrequency
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
@@ -17,11 +18,25 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    # response = requests.get(resp)
     if resp.status == 200:
         validLinks = list()
         soup = BeautifulSoup(resp.raw_response.content, "html.parser")
+        text = soup.get_text()
+
+        tokens = tokenize(text)
+        if len(tokens) > longestPage[1]:
+            longestPage[0] = resp.url
+            longestPage[1] = len(tokens)
+        
+        wordFrequency = compute_word_frequencies(tokens)
+        for word in wordFrequency:
+            if word in totalWordFrequency:
+                totalWordFrequency[word] += wordFrequency[word]
+            else:
+                totalWordFrequency[word] = wordFrequency[word]
+
         aTags = soup.find_all("a")
+        aTags = [tag for tag in aTags if "#" not in tag]
         for tag in aTags:
             validLinks.append(tag["href"])
         return validLinks
