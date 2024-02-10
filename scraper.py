@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
 from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu
+from utils import get_logger
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
@@ -23,7 +24,10 @@ def extract_next_links(url, resp):
         # Get raw content and turn into BeautifulSoup object to work with
         soup = BeautifulSoup(resp.raw_response.content, "html.parser")
         text = soup.get_text()
-        print(text)
+
+        with open("tester.txt", "w") as file:
+            file.write(text)
+            
         # Add page to list of unique pages
         uniquePages.add(resp.url)
 
