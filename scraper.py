@@ -19,9 +19,6 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    with open("tester.txt", "w") as file:
-            file.write(url)
-            file.write(resp.raw_response.content)
     if resp.status == 200:
         validLinks = list()
         # Get raw content and turn into BeautifulSoup object to work with
