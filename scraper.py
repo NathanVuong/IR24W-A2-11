@@ -48,6 +48,7 @@ def extract_next_links(url, resp):
 
         # Get all links to other pages
         aTags = soup.find_all("a")
+        aTags = [aTags("href") for tag in aTags]
         aTags = [tag for tag in aTags if "#" not in tag]
 
         # Check if domain is ics.uci.edu for report
@@ -59,7 +60,7 @@ def extract_next_links(url, resp):
             with open("tester.txt", "w") as file:
                 file.write(tag)
             if tag not in uniquePages:
-                validLinks.append(tag["href"])
+                validLinks.append(tag)
         return validLinks
     return list()
 
