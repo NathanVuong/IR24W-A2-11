@@ -41,7 +41,7 @@ def tokenizeString(words: str) -> list:
 
 def removeStopwords(lst: list) -> list:
     newList = lst.copy()
-    filePath = "/CS121/spacetime-crawler4py/tokenizer/stopwords.txt"
+    filePath = "stopwords.txt"
     stopLst = tokenize(filePath)
     for token in lst:
         if token in stopLst:
