@@ -57,7 +57,7 @@ def extract_next_links(url, resp):
         # Links to be returned to frontier if not already visited
         for tag in aTags:
             with open("tester.txt", "w") as file:
-                file.write(tag["href"])
+                file.write(tag)
             if tag not in uniquePages:
                 validLinks.append(tag["href"])
         return validLinks
