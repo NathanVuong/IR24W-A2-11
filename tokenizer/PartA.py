@@ -8,7 +8,6 @@ line in the file and then call split() which would effectively make
 the function iterate over each character.
 """
 
-
 def tokenize(fname: str) -> list:
     lst = []
     # Create regular expression that would match all non-alphanumeric characters
@@ -27,6 +26,26 @@ def tokenize(fname: str) -> list:
             line = f.readline()
     return lst
 
+def tokenizeString(words: str) -> list:
+    lst = []
+    # Create regular expression that would match all non-alphanumeric characters
+    p = re.compile(r'[^a-zA-Z0-9 -]')
+    lineEdit = p.sub(" ", words)
+    # Splits based on regular expression convert all alphabetical characters to lowercase
+    temp = lineEdit.lower().split()
+    # Removes the "" element that is at the end of each line
+    if "" in temp:
+        temp.remove("")
+    lst.extend(temp)
+    return lst
+
+def removeStopwords(lst: list) -> list:
+    newList = lst.copy()
+    stopLst = tokenize("stopwords.txt")
+    for token in lst:
+        if token in stopLst:
+            newList.remove(token)
+    return newList
 
 """
 This runs on linear time O(n) in proportion to how many
@@ -35,7 +54,7 @@ uses a for loop that increments through the list once.
 """
 
 
-def compute_word_frequencies(token_list: list) -> dict:
+def computeWordFrequencies(token_list: list) -> dict:
     frequencies = {}
     # Increment through lst and increases the word counter for each occurence.
     for word in token_list:
@@ -53,11 +72,11 @@ takes O(nlogn) time and is run on a data structure of the same size as "freq".
 """
 
 
-def print_freq(freq: dict) -> None:
+def printFreq(freq: dict) -> None:
     # Turn the dictionary "freq" into a list of tuples to make sorting easier.
-    tuple_list = [(v, k) for k, v in freq.items()]
+    tupleList = [(v, k) for k, v in freq.items()]
     # Sorting and iterating through the sorted list.
-    for value, key in sorted(tuple_list, key=lambda x: (-x[0], x[1])):
+    for value, key in sorted(tupleList, key=lambda x: (-x[0], x[1])):
         print(key + " -> " + str(value))
 
 
@@ -68,7 +87,7 @@ m is the number of unique tokens.
 """
 if __name__ == "__main__":
     tokens = tokenize(sys.argv[1])
-    freq = compute_word_frequencies(tokens)
-    print_freq(freq)
+    freq = computeWordFrequencies(tokens)
+    printFreq(freq)
 else:
     pass

@@ -1,8 +1,8 @@
 import re
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
-from tokenizer.PartA import tokenize, compute_word_frequencies
-from globals import longestPage, totalWordFrequency
+from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
+from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
@@ -20,25 +20,40 @@ def extract_next_links(url, resp):
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
     if resp.status == 200:
         validLinks = list()
+        # Get raw content and turn into BeautifulSoup object to work with
         soup = BeautifulSoup(resp.raw_response.content, "html.parser")
         text = soup.get_text()
 
-        tokens = tokenize(text)
+        # Add page to list of unique pages
+        uniquePages.add(resp.url)
+
+        # Tokenize text and check for longest page contender
+        tokens = tokenizeString(text)
         if len(tokens) > longestPage[1]:
             longestPage[0] = resp.url
             longestPage[1] = len(tokens)
         
-        wordFrequency = compute_word_frequencies(tokens)
+        # Remove stopwords and compute word frequency
+        tokens = removeStopwords(tokens)
+        wordFrequency = computeWordFrequencies(tokens)
         for word in wordFrequency:
             if word in totalWordFrequency:
                 totalWordFrequency[word] += wordFrequency[word]
             else:
                 totalWordFrequency[word] = wordFrequency[word]
 
+        # Get all links to other pages
         aTags = soup.find_all("a")
         aTags = [tag for tag in aTags if "#" not in tag]
+
+        # Check if domain is ics.uci.edu for report
+        if "ics.uci.edu" in resp.url:
+            icsUciEdu[resp.url] = len(aTags)
+
+        # Links to be returned to frontier if not already visited
         for tag in aTags:
-            validLinks.append(tag["href"])
+            if tag not in uniquePages:
+                validLinks.append(tag["href"])
         return validLinks
     return list()
 
