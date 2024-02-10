@@ -82,6 +82,6 @@ def getFreq(freq: dict) -> list:
     for value, key in sorted(tupleList, key=lambda x: (-x[0], x[1])):
         if counter == 50:
             break
-        sortedFreq.append((value, key))
+        sortedFreq.append((key, value))
         counter += 1
     return sortedFreq
