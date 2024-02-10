@@ -23,7 +23,7 @@ def extract_next_links(url, resp):
         # Get raw content and turn into BeautifulSoup object to work with
         soup = BeautifulSoup(resp.raw_response.content, "html.parser")
         text = soup.get_text()
-
+        print(text)
         # Add page to list of unique pages
         uniquePages.add(resp.url)
 
