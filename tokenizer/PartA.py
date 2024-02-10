@@ -41,7 +41,7 @@ def tokenizeString(words: str) -> list:
 
 def removeStopwords(lst: list) -> list:
     newList = lst.copy()
-    filePath = "stopwords.txt"
+    filePath = "tokenizer/stopwords.txt"
     stopLst = tokenize(filePath)
     for token in lst:
         if token in stopLst:
