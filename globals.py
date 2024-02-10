@@ -6,7 +6,7 @@ totalWordFrequency = dict()
 icsUciEdu = dict()
 
 def report():
-    filePath = "/CS121/spacetime-crawler4py/report.txt"
+    filePath = "report.txt"
     with open(filePath, "w") as file:
         file.write("Unique pages found: " + str(len(uniquePages)))
         file.write("Longest page: " + longestPage[0])
