@@ -72,22 +72,15 @@ takes O(nlogn) time and is run on a data structure of the same size as "freq".
 """
 
 
-def printFreq(freq: dict) -> None:
+def getFreq(freq: dict) -> list:
+    sortedFreq = list()
     # Turn the dictionary "freq" into a list of tuples to make sorting easier.
     tupleList = [(v, k) for k, v in freq.items()]
     # Sorting and iterating through the sorted list.
+    counter = 0
     for value, key in sorted(tupleList, key=lambda x: (-x[0], x[1])):
-        print(key + " -> " + str(value))
-
-
-"""
-This is the main function and the time complexity of the program
-is O(n + mlogm) where n is the number of characters in the file and
-m is the number of unique tokens.
-"""
-if __name__ == "__main__":
-    tokens = tokenize(sys.argv[1])
-    freq = computeWordFrequencies(tokens)
-    printFreq(freq)
-else:
-    pass
+        if counter == 50:
+            break
+        sortedFreq.append((value, key))
+        counter += 1
+    return sortedFreq
