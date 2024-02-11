@@ -18,8 +18,7 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    if not is_valid(resp.url):
-        return list()
+    
     if resp.status == 200:
         validLinks = list()
         # Get raw content and turn into BeautifulSoup object to work with
@@ -35,7 +34,6 @@ def extract_next_links(url, resp):
             longestPage[0] = resp.url
             longestPage[1] = len(tokens)
 
-        
         # Remove stopwords and compute word frequency
         tokens = removeStopwords(tokens)
         wordFrequency = computeWordFrequencies(tokens)
