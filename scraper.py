@@ -28,8 +28,9 @@ def extract_next_links(url, resp):
         with open("content.txt", "w") as file:
             file.write(str(soup.find_all('a')))
 
-        with open("tester.txt", "w") as file:
-            file.write(text)
+        for a in soup.find_all('a'):
+            with open("tester.txt", "w") as file:
+                file.write(a["href"])
 
         # Add page to list of unique pages
         uniquePages.add(resp.url)
