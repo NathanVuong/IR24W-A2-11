@@ -48,7 +48,6 @@ def extract_next_links(url, resp):
 
         # Get all links to other pages
         aTags = soup.find_all("a")
-        aTags = [aTags("href") for tag in aTags]
         aTags = [tag for tag in aTags if "#" not in tag]
 
         # Check if domain is ics.uci.edu for report
