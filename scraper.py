@@ -30,7 +30,7 @@ def extract_next_links(url, resp):
 
         for a in soup.find_all('a'):
             with open("tester.txt", "w") as file:
-                file.write(a.get("href"))
+                file.write(str(a.get("href")))
 
         # Add page to list of unique pages
         uniquePages.add(resp.url)
@@ -63,8 +63,8 @@ def extract_next_links(url, resp):
 
         # Links to be returned to frontier if not already visited
         for tag in aTags:
-            if tag.get("href") not in uniquePages:
-                validLinks.append(tag.get("href"))
+            if str(tag.get("href")) not in uniquePages:
+                validLinks.append(str(tag.get("href")))
         
         for link in validLinks:
             with open("links.txt", "w") as file:
