@@ -70,7 +70,7 @@ def is_valid(url):
             return False
         # Check if domain contains any of the provided valid domains
         netLocation = parsed.netloc
-        if not (".ics.uci.edu/" in netLocation or ".cs.uci.edu/" in netLocation or ".informatics.uci.edu/" in netLocation or ".stat.uci.edu/" in netLocation):
+        if not (".ics.uci.edu" in netLocation or ".cs.uci.edu" in netLocation or ".informatics.uci.edu" in netLocation or ".stat.uci.edu" in netLocation):
             return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
