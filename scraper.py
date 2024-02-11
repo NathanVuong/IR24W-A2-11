@@ -19,7 +19,7 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    if resp.status == 200:
+    #if resp.status == 200:
         validLinks = list()
         # Get raw content and turn into BeautifulSoup object to work with
         soup = BeautifulSoup(resp.raw_response.content, "html.parser")
@@ -64,7 +64,7 @@ def extract_next_links(url, resp):
             if tag not in uniquePages:
                 validLinks.append(tag.get_text())
         return validLinks
-    return list()
+    #return list()
 
 def is_valid(url):
     # Decide whether to crawl this url or not. 
@@ -75,9 +75,9 @@ def is_valid(url):
         if parsed.scheme not in set(["http", "https"]):
             return False
         # Check if domain contains any of the provided valid domains
-        #validDomains = [".ics.uci.edu/", ".cs.uci.edu/", ".informatics.uci.edu/", ".stat.uci.edu/"]
-        #if not any(domain in parsed for domain in validDomains):
-        #    return False
+        validDomains = [".ics.uci.edu/", ".cs.uci.edu/", ".informatics.uci.edu/", ".stat.uci.edu/"]
+        if not any(domain in parsed for domain in validDomains):
+            return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
