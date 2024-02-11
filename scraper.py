@@ -69,7 +69,8 @@ def is_valid(url):
         if parsed.scheme not in set(["http", "https"]):
             return False
         # Check if domain contains any of the provided valid domains
-        if not (".ics.uci.edu/" in parsed or ".cs.uci.edu/" in parsed or ".informatics.uci.edu/" in parsed or ".stat.uci.edu/" in parsed):
+        netLocation = parsed.netloc
+        if not (".ics.uci.edu/" in netLocation or ".cs.uci.edu/" in netLocation or ".informatics.uci.edu/" in netLocation or ".stat.uci.edu/" in netLocation):
             return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
