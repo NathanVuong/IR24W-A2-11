@@ -64,8 +64,8 @@ def extract_next_links(url, resp):
         for tag in aTags:
             with open("links.txt", "w") as file:
                 file.write(tag.get_text())
-            if tag not in uniquePages:
-                validLinks.append(tag.get_text())
+            #if tag not in uniquePages:
+            validLinks.append(str(tag.get_text()))
         return validLinks
     return list()
 
