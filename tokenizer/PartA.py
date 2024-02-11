@@ -1,5 +1,4 @@
 import re
-import sys
 
 """
 This runs on linear time O(n) where n is the number of characters 
@@ -8,6 +7,7 @@ line in the file and then call split() which would effectively make
 the function iterate over each character.
 """
 
+# Tokenizes a given file
 def tokenize(fname: str) -> list:
     lst = []
     # Create regular expression that would match all non-alphanumeric characters
@@ -26,6 +26,7 @@ def tokenize(fname: str) -> list:
             line = f.readline()
     return lst
 
+# Tokenizes a given string
 def tokenizeString(words: str) -> list:
     lst = []
     # Create regular expression that would match all non-alphanumeric characters
@@ -39,6 +40,7 @@ def tokenizeString(words: str) -> list:
     lst.extend(temp)
     return lst
 
+# Remove all listed stopwords from stopwords.txt
 def removeStopwords(lst: list) -> list:
     newList = lst.copy()
     filePath = "tokenizer/stopwords.txt"
@@ -54,7 +56,7 @@ elements are in list "lst". This is because the function
 uses a for loop that increments through the list once.
 """
 
-
+# Get dictionary of word frequencies
 def computeWordFrequencies(token_list: list) -> dict:
     frequencies = {}
     # Increment through lst and increases the word counter for each occurence.
@@ -72,7 +74,7 @@ of the dictionary "freq". This is because the sorted() algorithm
 takes O(nlogn) time and is run on a data structure of the same size as "freq".
 """
 
-
+# Get top 50 most frequent words
 def getFreq(freq: dict) -> list:
     sortedFreq = list()
     # Turn the dictionary "freq" into a list of tuples to make sorting easier.

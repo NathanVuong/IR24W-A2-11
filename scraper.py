@@ -56,10 +56,6 @@ def extract_next_links(url, resp):
         for tag in aTags:
             if str(tag) not in uniquePages:
                 validLinks.append(str(tag))
-        
-        for link in validLinks:
-            with open("links.txt", "w") as file:
-                    file.write(link)
 
         return validLinks
     return list()
@@ -73,9 +69,8 @@ def is_valid(url):
         if parsed.scheme not in set(["http", "https"]):
             return False
         # Check if domain contains any of the provided valid domains
-        #validDomains = [".ics.uci.edu/", ".cs.uci.edu/", ".informatics.uci.edu/", ".stat.uci.edu/"]
-        #if not any(domain in parsed for domain in validDomains):
-        #    return False
+        if not (".ics.uci.edu/" in parsed or ".cs.uci.edu/" in parsed or ".informatics.uci.edu/" in parsed or ".stat.uci.edu/" in parsed):
+            return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
