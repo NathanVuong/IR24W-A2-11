@@ -46,7 +46,7 @@ def extract_next_links(url, resp):
         # Get all links to other pages
         aTags = soup.find_all('a', href = True)
         aTags = [a.get('href') for a in aTags]
-        aTags = [tag[:tag.find("#")] for tag in aTags if "#" in tag]
+        #aTags = [tag[:tag.find("#")] for tag in aTags if "#" in tag]
 
         # Check if domain is ics.uci.edu for report
         if "ics.uci.edu" in resp.url:
