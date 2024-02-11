@@ -67,7 +67,7 @@ def extract_next_links(url, resp):
         
         for link in validLinks:
             with open("links.txt", "w") as file:
-                    file.write(link["href"])
+                    file.write(link)
 
         return validLinks
     return list()
