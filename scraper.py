@@ -25,13 +25,6 @@ def extract_next_links(url, resp):
         soup = BeautifulSoup(resp.raw_response.content, "html.parser")
         text = soup.get_text()
 
-        with open("content.txt", "w") as file:
-            file.write(str(soup.find_all('a')))
-
-        for a in soup.find_all('a'):
-            with open("tester.txt", "w") as file:
-                file.write(str(a.get("href")))
-
         # Add page to list of unique pages
         uniquePages.add(resp.url)
 
@@ -54,9 +47,6 @@ def extract_next_links(url, resp):
         aTags = soup.find_all('a', href = True)
         aTags = [a.get('href') for a in aTags]
         aTags = [tag for tag in aTags if "#" not in tag]
-        for tag in aTags:
-            with open("tags.txt", "w") as file:
-                file.write(str(tag))
 
         # Check if domain is ics.uci.edu for report
         if "ics.uci.edu" in resp.url:
@@ -83,9 +73,9 @@ def is_valid(url):
         if parsed.scheme not in set(["http", "https"]):
             return False
         # Check if domain contains any of the provided valid domains
-        validDomains = [".ics.uci.edu/", ".cs.uci.edu/", ".informatics.uci.edu/", ".stat.uci.edu/"]
-        if not any(domain in parsed for domain in validDomains):
-            return False
+        #validDomains = [".ics.uci.edu/", ".cs.uci.edu/", ".informatics.uci.edu/", ".stat.uci.edu/"]
+        #if not any(domain in parsed for domain in validDomains):
+        #    return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
