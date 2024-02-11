@@ -26,7 +26,7 @@ def extract_next_links(url, resp):
         text = soup.get_text()
 
         with open("content.txt", "w") as file:
-            file.write(str(resp.raw_response.content))
+            file.write(str(soup.find_all('a')))
 
         with open("tester.txt", "w") as file:
             file.write(text)
@@ -50,7 +50,7 @@ def extract_next_links(url, resp):
                 totalWordFrequency[word] = wordFrequency[word]
 
         # Get all links to other pages
-        aTags = soup.find_all("a")
+        aTags = soup.find_all('a')
         # aTags = [tag for tag in aTags if "#" not in tag]
         for tag in aTags:
             with open("tags.txt", "w") as file:
