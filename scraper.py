@@ -50,11 +50,11 @@ def extract_next_links(url, resp):
                 totalWordFrequency[word] = wordFrequency[word]
 
         # Get all links to other pages
-        aTags = soup.find_all('a')
-        # aTags = [tag for tag in aTags if "#" not in tag]
+        aTags = soup.find_all('a', href = True)
+        aTags = [tag for tag in aTags if "#" not in tag]
         for tag in aTags:
             with open("tags.txt", "w") as file:
-                    file.write(str(tag))
+                file.write(str(tag))
 
         # Check if domain is ics.uci.edu for report
         if "ics.uci.edu" in resp.url:
@@ -62,10 +62,13 @@ def extract_next_links(url, resp):
 
         # Links to be returned to frontier if not already visited
         for tag in aTags:
+            if tag not in uniquePages:
+                validLinks.append(tag["href"])
+        
+        for link in validLinks:
             with open("links.txt", "w") as file:
-                file.write(tag.get_text())
-            #if tag not in uniquePages:
-            validLinks.append(str(tag.get_text()))
+                    file.write(link["href"])
+
         return validLinks
     return list()
 
