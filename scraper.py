@@ -62,7 +62,7 @@ def extract_next_links(url, resp):
 
         # Links to be returned to frontier if not already visited
         for tag in aTags:
-            if tag not in uniquePages:
+            if tag["href"] not in uniquePages:
                 validLinks.append(tag["href"])
         
         for link in validLinks:
