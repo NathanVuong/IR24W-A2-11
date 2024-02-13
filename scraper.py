@@ -2,7 +2,7 @@ import re
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
-from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu
+from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, allPages
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
@@ -21,11 +21,14 @@ def extract_next_links(url, resp):
     if resp.status == 200:
         validLinks = list()
         # Get raw content and turn into BeautifulSoup object to work with
-        soup = BeautifulSoup(resp.raw_response.content, "html.parser")
+        soup = BeautifulSoup(resp.raw_response.content, "html.parser", from_encoding="iso-8859-1")
         text = soup.get_text()
 
         # Add page to list of unique pages
         uniquePages.add(resp.url)
+
+        # Add to all pages
+        allPages.append(resp.url)
 
         # Tokenize text and check for longest page contender
         tokens = tokenizeString(text)
@@ -45,9 +48,16 @@ def extract_next_links(url, resp):
         # Get all links to other pages
         aTags = soup.find_all('a', href = True)
         aTags = [a.get('href') for a in aTags]
+
+        # Remove the inclusion of fragments in link (turn all into the same link)
         for index in range(len(aTags)):
             if "#" in aTags[index]:
                 aTags[index] = aTags[index][:aTags[index].index("#")]
+
+        # Remove the inclusion of queries in link
+        for index in range(len(aTags)):
+            if "?" in aTags[index]:
+                aTags[index] = aTags[index][:aTags[index].index("?")]
 
         # Check if domain is ics.uci.edu for report
         if "ics.uci.edu" in resp.url:
