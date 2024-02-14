@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
 from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, allPages
@@ -47,7 +47,7 @@ def extract_next_links(url, resp):
 
         # Get all links to other pages
         aTags = soup.find_all('a', href = True)
-        aTags = [a.get('href') for a in aTags]
+        aTags = [urljoin(resp.url, a.get('href')) for a in aTags]
 
         # Remove the inclusion of fragments in link (turn all into the same link)
         for index in range(len(aTags)):
@@ -59,9 +59,15 @@ def extract_next_links(url, resp):
             if "?" in aTags[index]:
                 aTags[index] = aTags[index][:aTags[index].index("?")]
 
+
         # Check if domain is ics.uci.edu for report
         if "ics.uci.edu" in resp.url:
-            icsUciEdu[resp.url] = len(aTags)
+            # Get subdomain
+            sub = resp.url[resp.url.index("//")+2:resp.url.index(".")]
+            if sub in icsUciEdu:
+                icsUciEdu[sub] += len(aTags)
+            else:
+                icsUciEdu[sub] = len(aTags)
 
         # Links to be returned to frontier if not already visited
         for tag in aTags:
