@@ -46,7 +46,7 @@ def removeStopwords(lst: list) -> list:
     filePath = "tokenizer/stopwords.txt"
     stopLst = tokenize(filePath)
     for token in lst:
-        if token in stopLst:
+        if token in stopLst or len(token) == 1 or (len(token) == 2 and token[0] == "-"):
             newList.remove(token)
     return newList
 

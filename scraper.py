@@ -47,6 +47,7 @@ def extract_next_links(url, resp):
 
         # Get all links to other pages
         aTags = soup.find_all('a', href = True)
+        # If relative path then turn into absolute path
         aTags = [urljoin(resp.url, a.get('href')) for a in aTags]
 
         # Remove the inclusion of fragments in link (turn all into the same link)
@@ -96,7 +97,13 @@ def is_valid(url):
         for invalid in invalidPaths:
             if invalid in parsed.path.lower() or invalid in parsed.query.lower():
                 return False
-        
+
+        # This checks for repeated paths
+        pathOnly = parsed.path.split('.')[0]
+        pathList = pathOnly.split('/')
+        if len(pathList) >= len(set(pathList)) + 2:
+            return False
+
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
