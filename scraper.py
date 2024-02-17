@@ -1,4 +1,5 @@
 import re
+import requests
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
@@ -117,3 +118,35 @@ def is_valid(url):
     except TypeError:
         print ("TypeError for ", parsed)
         raise
+
+def canCrawl(url):
+    # Convert url to robots.txt url
+    domain = urlparse(url).netloc
+    robotsURL = "http://" + domain + "/robots.txt"
+    
+    # Request the robots.txt file
+    # If robots.txt file DNE, crawl it
+    try:
+        response = requests.get(robotsURL)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError:
+        return True
+    
+    # Parse the robots.txt file
+    lines = response.text.split('\n')
+
+    # Find all User-agent: * entries
+    ruleStart = lines.index("User-agent: *")
+    lines = lines[ruleStart:]
+    ruleEnd = lines.index('')
+    userAgentRules = lines[1:ruleEnd]
+
+    # If url contains a bad path, return false
+    for rule in userAgentRules:
+        if "Disallow:" in rule:
+            badPath = rule[(rule.index(":") + 2):]
+            if badPath in url:
+                return False
+    
+    # If no rule specifically allows or disallows the URL, default to allowing
+    return True
