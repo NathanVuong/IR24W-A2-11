@@ -39,7 +39,11 @@ def extract_next_links(url, resp):
 
         # Remove stopwords and compute word frequency
         tokens = removeStopwords(tokens)
+
+        # Generate hash value of current page
         newHash = sim_hash(tokens)
+
+        # Compare the page to most recent 50 pages for duplicate
         for currHash in recentHashes:
             if (sim_thres(newHash, currHash) > 0.9):
                 return list()
@@ -48,6 +52,8 @@ def extract_next_links(url, resp):
         else:
             recentHashes.pop(0)
             recentHashes.append(newHash)
+
+        # Update total word frequencies
         wordFrequency = computeWordFrequencies(tokens)
         for word in wordFrequency:
             if word in totalWordFrequency:
@@ -128,6 +134,7 @@ def is_valid(url):
         print ("TypeError for ", parsed)
         raise
 
+# Checks to see if URL is crawlable based on robots.txt
 def canCrawl(url):
     # Convert url to robots.txt url
     domain = urlparse(url).netloc
@@ -187,6 +194,7 @@ def sim_hash(tokenList):
     #print(bin(finalValue))
     return finalValue
 
+# Compares the two hash values and gives a decimal representation of similarity
 def sim_thres(hash1, hash2):
     simNum = 0
     allNum = 0
