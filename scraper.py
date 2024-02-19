@@ -41,7 +41,7 @@ def extract_next_links(url, resp):
         tokens = removeStopwords(tokens)
         newHash = sim_hash(tokens)
         for currHash in recentHashes:
-            if (currHash ^ newHash):
+            if (sim_thres(newHash, currHash) > 0.9):
                 return list()
         if (len(recentHashes) < 50):
             recentHashes.append(newHash)
@@ -164,12 +164,12 @@ def canCrawl(url):
 def sim_hash(tokenList):
     tempDict = computeWordFrequencies(tokenList)
     dictFinal = dict()
-    for i in range(18):
+    for i in range(20):
         dictFinal[i] = 0
     for word in tempDict:
-        i = 17
-        x = hash(word) % 262144
-        toIter = 262144 / 2
+        i = 19
+        x = hash(word) % 1048576
+        toIter = 1048576 / 2
         while toIter != 0:
             cur_bin = (int)(x / toIter)
             x = x % toIter
@@ -186,3 +186,18 @@ def sim_hash(tokenList):
             finalValue += 2 ** key
     #print(bin(finalValue))
     return finalValue
+
+def sim_thres(hash1, hash2):
+    simNum = 0
+    allNum = 0
+    toIter = 1048576 / 2
+    while toIter != 0:
+        cur_bin1 = (int)(hash1 / toIter)
+        cur_bin2 = (int)(hash2 / toIter)
+        hash1 = hash1 % toIter
+        hash2 = hash2 % toIter
+        if (cur_bin1 == cur_bin2):
+            simNum += 1
+        toIter = (int)(toIter / 2)
+        allNum += 1
+    return simNum / allNum
