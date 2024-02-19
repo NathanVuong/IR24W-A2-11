@@ -32,6 +32,11 @@ def extract_next_links(url, resp):
 
         # Tokenize text and check for longest page contender
         tokens = tokenizeString(text)
+
+        # Removes all pages with less than 50 tokens
+        if len(tokens) < 50:
+            return list()
+
         if len(tokens) > longestPage[1]:
             longestPage[0] = resp.url
             longestPage[1] = len(tokens)
@@ -107,7 +112,7 @@ def is_valid(url):
             return False
         
         # Check if invalid format
-        invalidPaths = "(css|js|bmp|gif|jpe?g|ico|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|mkv|ogg|ogv|pdf|ps|eps|tex|ppt|pptx|doc|docx|xls|xlsx|names|data|dat|exe|bz2|tar|msi|bin|7z|psd|dmg|iso|epub|dll|cnf|tgz|sha1|thmx|mso|arff|rtf|jar|csv|rm|smil|wmv|swf|wma|zip|rar|gz)$"
+        invalidPaths = "(css|war|ear|js|bmp|gif|jpe?g|ico|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|mkv|ogg|ogv|pdf|ps|eps|tex|ppt|pptx|doc|docx|xls|xlsx|names|data|dat|exe|bz2|tar|msi|bin|7z|psd|dmg|iso|epub|dll|cnf|tgz|sha1|thmx|mso|arff|rtf|jar|csv|rm|smil|wmv|swf|wma|zip|rar|gz)$"
         invalidPaths = invalidPaths.split('|')
         for invalid in invalidPaths:
             if invalid in parsed.path.lower() or invalid in parsed.query.lower():
@@ -120,7 +125,7 @@ def is_valid(url):
             return False
 
         return not re.match(
-            r".*\.(css|js|bmp|gif|jpe?g|ico"
+            r".*\.(css|war|ear|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
             + r"|wav|avi|mov|mpeg|ram|m4v|mkv|ogg|ogv|pdf"
             + r"|ps|eps|tex|ppt|pptx|doc|docx|xls|xlsx|names"
