@@ -4,11 +4,11 @@ from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
 from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, allPages, recentHashes
 
-def scraper(url, resp, robot):
-    links = extract_next_links(url, resp, robot)
+def scraper(url, resp):
+    links = extract_next_links(url, resp)
     return [link for link in links if is_valid(link)]
 
-def extract_next_links(url, resp, robot):
+def extract_next_links(url, resp):
     # Implementation required.
     # url: the URL that was used to get the page
     # resp.url: the actual url of the page
@@ -17,32 +17,7 @@ def extract_next_links(url, resp, robot):
     # resp.raw_response: this is where the page actually is. More specifically, the raw_response has two parts:
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
-    # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    # If robots.txt file DNE, assume we are allowed to crawl
-    if robot.status == 200:
-       # Get robot.txt text
-       robotSoup = BeautifulSoup(robot.raw.raw_response.content, "html.parser", from_encoding="iso-8859-1")
-       robotText = robotSoup.get_text()
-
-
-       # Split lines and start to parse
-       lines = robotText.split('\n')
-
-
-       # Find all User-agent: * entries
-       ruleStart = lines.index("User-agent: *")
-       lines = lines[ruleStart:]
-       ruleEnd = lines.index('')
-       userAgentRules = lines[1:ruleEnd]
-
-
-       # If url contains a bad path, we shouldn't crawl
-       for rule in userAgentRules:
-           if "Disallow:" in rule:
-               badPath = rule[(rule.index(":") + 2):]
-               if badPath in resp.url:
-                   return list()
-       # If no rule specifically allows or disallows the URL, default to allowing
+    # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content    
     if resp.status == 200:
         validLinks = list()
         # Get raw content and turn into BeautifulSoup object to work with
