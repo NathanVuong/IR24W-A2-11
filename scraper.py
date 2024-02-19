@@ -2,7 +2,7 @@ import re
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
-from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, allPages, recentHashes
+from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, recentHashes
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
@@ -26,9 +26,6 @@ def extract_next_links(url, resp):
 
         # Add page to list of unique pages
         uniquePages.add(resp.url)
-
-        # Add to all pages
-        allPages.append(resp.url)
 
         # Tokenize text and check for longest page contender
         tokens = tokenizeString(text)
