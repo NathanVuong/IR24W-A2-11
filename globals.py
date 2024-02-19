@@ -5,6 +5,7 @@ allPages = list()
 longestPage = ["N/A", 0]
 totalWordFrequency = dict()
 icsUciEdu = dict()
+recentHashes = list()
 
 def report():
     filePath = "report.txt"

@@ -3,7 +3,7 @@ import requests
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
-from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, allPages
+from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, allPages, recentHashes
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
@@ -39,6 +39,15 @@ def extract_next_links(url, resp):
 
         # Remove stopwords and compute word frequency
         tokens = removeStopwords(tokens)
+        newHash = sim_hash(tokens)
+        for currHash in recentHashes:
+            if (currHash ^ newHash):
+                return list()
+        if (len(recentHashes) < 50):
+            recentHashes.append(newHash)
+        else:
+            recentHashes.pop(0)
+            recentHashes.append(newHash)
         wordFrequency = computeWordFrequencies(tokens)
         for word in wordFrequency:
             if word in totalWordFrequency:
@@ -150,3 +159,30 @@ def canCrawl(url):
     
     # If no rule specifically allows or disallows the URL, default to allowing
     return True
+
+# This is an implementation of the simhash algorithm to detect near and exact duplicates
+def sim_hash(tokenList):
+    tempDict = computeWordFrequencies(tokenList)
+    dictFinal = dict()
+    for i in range(18):
+        dictFinal[i] = 0
+    for word in tempDict:
+        i = 17
+        x = hash(word) % 262144
+        toIter = 262144 / 2
+        while toIter != 0:
+            cur_bin = (int)(x / toIter)
+            x = x % toIter
+            toIter = (int)(toIter / 2)
+            #print((cur_bin * tempDict[word]))
+            if cur_bin == 0:
+                dictFinal[i] = dictFinal[i] - tempDict[word]
+            else:
+                dictFinal[i] = dictFinal[i] + tempDict[word]
+            i -= 1
+    finalValue = 0
+    for key, value in dictFinal.items():
+        if value > 0:
+            finalValue += 2 ** key
+    #print(bin(finalValue))
+    return finalValue
