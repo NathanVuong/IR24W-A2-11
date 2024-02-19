@@ -1,15 +1,14 @@
 import re
-import requests
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from tokenizer.PartA import tokenizeString, computeWordFrequencies, removeStopwords
 from globals import longestPage, totalWordFrequency, uniquePages, icsUciEdu, allPages, recentHashes
 
-def scraper(url, resp):
-    links = extract_next_links(url, resp)
+def scraper(url, resp, robot):
+    links = extract_next_links(url, resp, robot)
     return [link for link in links if is_valid(link)]
 
-def extract_next_links(url, resp):
+def extract_next_links(url, resp, robot):
     # Implementation required.
     # url: the URL that was used to get the page
     # resp.url: the actual url of the page
@@ -19,7 +18,32 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    if resp.status == 200 and canCrawl(resp.url):
+    # If robots.txt file DNE, assume we are allowed to crawl
+    if robot.status == 200:
+       # Get robot.txt text
+       robotSoup = BeautifulSoup(robot.raw.raw_response.content, "html.parser", from_encoding="iso-8859-1")
+       robotText = robotSoup.get_text()
+
+
+       # Split lines and start to parse
+       lines = robotText.split('\n')
+
+
+       # Find all User-agent: * entries
+       ruleStart = lines.index("User-agent: *")
+       lines = lines[ruleStart:]
+       ruleEnd = lines.index('')
+       userAgentRules = lines[1:ruleEnd]
+
+
+       # If url contains a bad path, we shouldn't crawl
+       for rule in userAgentRules:
+           if "Disallow:" in rule:
+               badPath = rule[(rule.index(":") + 2):]
+               if badPath in resp.url:
+                   return list()
+       # If no rule specifically allows or disallows the URL, default to allowing
+    if resp.status == 200:
         validLinks = list()
         # Get raw content and turn into BeautifulSoup object to work with
         soup = BeautifulSoup(resp.raw_response.content, "html.parser", from_encoding="iso-8859-1")
@@ -133,39 +157,6 @@ def is_valid(url):
     except TypeError:
         print ("TypeError for ", parsed)
         raise
-
-# Checks to see if URL is crawlable based on robots.txt
-def canCrawl(url):
-    # Convert url to robots.txt url
-    domain = urlparse(url).netloc
-    robotsURL = "http://" + domain + "/robots.txt"
-    
-    # Request the robots.txt file
-    # If robots.txt file DNE, crawl it
-    try:
-        response = requests.get(robotsURL)
-        response.raise_for_status()
-    except requests.exceptions.HTTPError:
-        return True
-    
-    # Parse the robots.txt file
-    lines = response.text.split('\n')
-
-    # Find all User-agent: * entries
-    ruleStart = lines.index("User-agent: *")
-    lines = lines[ruleStart:]
-    ruleEnd = lines.index('')
-    userAgentRules = lines[1:ruleEnd]
-
-    # If url contains a bad path, return false
-    for rule in userAgentRules:
-        if "Disallow:" in rule:
-            badPath = rule[(rule.index(":") + 2):]
-            if badPath in url:
-                return False
-    
-    # If no rule specifically allows or disallows the URL, default to allowing
-    return True
 
 # This is an implementation of the simhash algorithm to detect near and exact duplicates
 def sim_hash(tokenList):
