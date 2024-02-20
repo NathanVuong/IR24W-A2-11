@@ -1,3 +1,8 @@
+### IR24W-A2 Group 12
+-------------------------
+ncvuong: 25684544
+dfhuynh: 18167736
+
 ABOUT
 -------------------------
 This is the base implementation of a full crawler that uses a spacetime
