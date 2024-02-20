@@ -1,7 +1,7 @@
 ### IR24W-A2 Group 11
 -------------------------
-ncvuong: 25684544\
-dfhuynh: 18167736
+Nathan Vuong; ncvuong; 25684544\
+Darren Huynh; dfhuynh; 18167736
 
 ABOUT
 -------------------------
