@@ -1,0 +1,132 @@
+Unique pages found: 5336
+Longest page: http://www.ics.uci.edu/~kay/wordlist.txt
+Length of longest page: 475850
+#1 most common word w/ frequency: research, 12384
+#2 most common word w/ frequency: will, 9231
+#3 most common word w/ frequency: computer, 8508
+#4 most common word w/ frequency: information, 8468
+#5 most common word w/ frequency: uci, 8344
+#6 most common word w/ frequency: data, 8268
+#7 most common word w/ frequency: software, 7817
+#8 most common word w/ frequency: students, 6531
+#9 most common word w/ frequency: student, 6302
+#10 most common word w/ frequency: ics, 6276
+#11 most common word w/ frequency: 2022, 5787
+#12 most common word w/ frequency: science, 5688
+#13 most common word w/ frequency: may, 5544
+#14 most common word w/ frequency: markellekelly, 5253
+#15 most common word w/ frequency: engineering, 5029
+#16 most common word w/ frequency: 2018, 4856
+#17 most common word w/ frequency: design, 4830
+#18 most common word w/ frequency: informatics, 4582
+#19 most common word w/ frequency: systems, 4496
+#20 most common word w/ frequency: new, 4409
+#21 most common word w/ frequency: people, 4374
+#22 most common word w/ frequency: university, 4348
+#23 most common word w/ frequency: irvine, 4339
+#24 most common word w/ frequency: one, 4329
+#25 most common word w/ frequency: 10, 4279
+#26 most common word w/ frequency: news, 4272
+#27 most common word w/ frequency: 2019, 4269
+#28 most common word w/ frequency: graduate, 4190
+#29 most common word w/ frequency: course, 4182
+#30 most common word w/ frequency: 2021, 4155
+#31 most common word w/ frequency: 2020, 4152
+#32 most common word w/ frequency: search, 4140
+#33 most common word w/ frequency: learning, 4136
+#34 most common word w/ frequency: project, 4045
+#35 most common word w/ frequency: school, 4017
+#36 most common word w/ frequency: time, 4015
+#37 most common word w/ frequency: projects, 3947
+#38 most common word w/ frequency: ramesh, 3907
+#39 most common word w/ frequency: department, 3906
+#40 most common word w/ frequency: 2017, 3888
+#41 most common word w/ frequency: use, 3867
+#42 most common word w/ frequency: 2015, 3859
+#43 most common word w/ frequency: pdf, 3844
+#44 most common word w/ frequency: events, 3776
+#45 most common word w/ frequency: code, 3718
+#46 most common word w/ frequency: 2016, 3676
+#47 most common word w/ frequency: computing, 3655
+#48 most common word w/ frequency: undergraduate, 3636
+#49 most common word w/ frequency: courses, 3616
+#50 most common word w/ frequency: using, 3522
+Subdomains in ics.uci.edu domain: 78
+Subdomains and their unique pages: accessibility, 35
+Subdomains and their unique pages: acoi, 2418
+Subdomains and their unique pages: aiclub, 63
+Subdomains and their unique pages: archive, 128
+Subdomains and their unique pages: asterix, 117
+Subdomains and their unique pages: cert, 98
+Subdomains and their unique pages: chenli, 630
+Subdomains and their unique pages: cml, 4091
+Subdomains and their unique pages: code, 455
+Subdomains and their unique pages: computableplant, 573
+Subdomains and their unique pages: cradl, 176
+Subdomains and their unique pages: create, 239
+Subdomains and their unique pages: cwicsocal18, 110
+Subdomains and their unique pages: cyberclub, 227
+Subdomains and their unique pages: datalab, 42
+Subdomains and their unique pages: dgillen, 274
+Subdomains and their unique pages: duttgroup, 1414
+Subdomains and their unique pages: emj, 934
+Subdomains and their unique pages: evoke, 50
+Subdomains and their unique pages: flamingo, 316
+Subdomains and their unique pages: fr, 70
+Subdomains and their unique pages: frost, 6
+Subdomains and their unique pages: futurehealth, 2213
+Subdomains and their unique pages: grape, 17083
+Subdomains and their unique pages: graphics, 39
+Subdomains and their unique pages: graphmod, 61
+Subdomains and their unique pages: hai, 198
+Subdomains and their unique pages: hobbes, 169
+Subdomains and their unique pages: hpi, 70
+Subdomains and their unique pages: hub, 5
+Subdomains and their unique pages: i-sensorium, 43
+Subdomains and their unique pages: iasl, 0
+Subdomains and their unique pages: industryshowcase, 550
+Subdomains and their unique pages: informatics, 160
+Subdomains and their unique pages: intranet, 23
+Subdomains and their unique pages: ipubmed, 18
+Subdomains and their unique pages: isg, 2140
+Subdomains and their unique pages: jgarcia, 25
+Subdomains and their unique pages: luci, 58
+Subdomains and their unique pages: malek, 25
+Subdomains and their unique pages: mcs, 1007
+Subdomains and their unique pages: mdogucu, 124
+Subdomains and their unique pages: mds, 520
+Subdomains and their unique pages: mhcid, 372
+Subdomains and their unique pages: mondego, 72
+Subdomains and their unique pages: mse, 206
+Subdomains and their unique pages: mswe, 263
+Subdomains and their unique pages: nalini, 77
+Subdomains and their unique pages: ngs, 33821
+Subdomains and their unique pages: pastebin, 24
+Subdomains and their unique pages: perennialpolycultures, 24
+Subdomains and their unique pages: phpmyadmin, 2
+Subdomains and their unique pages: plrg, 478
+Subdomains and their unique pages: psearch, 8
+Subdomains and their unique pages: radicle, 32
+Subdomains and their unique pages: redmiles, 36
+Subdomains and their unique pages: riscit, 41
+Subdomains and their unique pages: rstudio-hub, 3
+Subdomains and their unique pages: scale, 81
+Subdomains and their unique pages: sdcl, 4717
+Subdomains and their unique pages: seal, 442
+Subdomains and their unique pages: sherlock, 115
+Subdomains and their unique pages: sli, 2682
+Subdomains and their unique pages: sourcerer, 3
+Subdomains and their unique pages: speedtest, 3
+Subdomains and their unique pages: stairs, 59
+Subdomains and their unique pages: statconsulting, 26
+Subdomains and their unique pages: student-council, 564
+Subdomains and their unique pages: swiki, 754
+Subdomains and their unique pages: tad, 3
+Subdomains and their unique pages: tastier, 24
+Subdomains and their unique pages: transformativeplay, 1035
+Subdomains and their unique pages: tutors, 265
+Subdomains and their unique pages: unite, 225
+Subdomains and their unique pages: vision, 4833
+Subdomains and their unique pages: wics, 11124
+Subdomains and their unique pages: www, 120842
+Subdomains and their unique pages: xtune, 36
